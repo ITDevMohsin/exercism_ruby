@@ -88,3 +88,25 @@ class LogLineParser
     "#{message} (#{log_level})"
   end
 end
+
+#---------- 4th solution (all 11 tests are passed) ----------
+
+class LogLineParser
+  attr_reader :message, :log_level
+  REGULAR_EXPRESSION = {
+    message_and_level: /\[(?<log_level>[A-Z]+)\]:\s*(?<message>[\w| ]+\b)/
+  }
+
+  RE = REGULAR_EXPRESSION
+  private_constant :RE
+
+  def initialize(line)
+    matches = RE[:message_and_level].match(line)
+    @log_level = matches[:log_level].downcase
+    @message = matches[:message]
+  end
+
+  def reformat
+    "#{message} (#{log_level})"
+  end
+end
