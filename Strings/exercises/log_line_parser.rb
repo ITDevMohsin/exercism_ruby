@@ -51,3 +51,19 @@ class LogLineParser
     "#{message} (#{log_level})"
   end
 end
+
+#---------- 2nd solution (all 11 tests are passed) ----------
+
+class LogLineParser
+  attr_reader :message, :log_level
+
+  def initialize(line)
+    message_string = /\[(?<log_level>[A-Z]+)\]:\s*(?<message>[\w| ]+\b)/.match(line)
+    @log_level = message_string[:log_level].downcase
+    @message = message_string[:message]
+  end
+
+  def reformat
+    "#{@message} (#{@log_level})"
+  end
+end
